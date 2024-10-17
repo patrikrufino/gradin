@@ -92,25 +92,26 @@ def split_pdf_into_posters(filepath, output_prefix, rows, cols):
         print("O PDF não contém páginas.")
         return None
 
-    page = pdf_doc[0]
-    rect = page.rect
-
-    piece_width = rect.width / cols
-    piece_height = rect.height / rows
-
     output_pdf = fitz.open()
 
-    for row in range(rows):
-        for col in range(cols):
-            x0 = col * piece_width
-            y0 = row * piece_height
-            x1 = x0 + piece_width
-            y1 = y0 + piece_height
+    for page_number in range(len(pdf_doc)):
+        page = pdf_doc[page_number]
+        rect = page.rect
 
-            piece_rect = fitz.Rect(x0, y0, x1, y1)
+        piece_width = rect.width / cols
+        piece_height = rect.height / rows
 
-            new_page = output_pdf.new_page(width=piece_width, height=piece_height)
-            new_page.show_pdf_page(new_page.rect, pdf_doc, 0, clip=piece_rect)
+        for row in range(rows):
+            for col in range(cols):
+                x0 = col * piece_width
+                y0 = row * piece_height
+                x1 = x0 + piece_width
+                y1 = y0 + piece_height
+
+                piece_rect = fitz.Rect(x0, y0, x1, y1)
+
+                new_page = output_pdf.new_page(width=piece_width, height=piece_height)
+                new_page.show_pdf_page(new_page.rect, pdf_doc, page_number, clip=piece_rect)
 
     timestamp = int(time.time())
     output_file_path = os.path.join(settings.MEDIA_ROOT, 'temp', f"{output_prefix}_{timestamp}.pdf")

@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="max-w-md border rounded-lg overflow-hidden shadow-lg bg-white p-12 flex-col justify-center">
-      <h1 class="text-4xl font-bold mb-12 text-center">Gradin</h1>
+      <img src="/logo-gradin-vertical.png" alt="Logo Gradin" class="mb-12 mx-auto w-32" />
       <form class="grid gap-6" @submit.prevent="submitForm">
 
         <!-- Dropzone -->

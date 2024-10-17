@@ -1,0 +1,14 @@
+*.sqlite3
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyz
+*.pyw
+*.pyz
+*.pyw
+*.db
+*.bak
+*.log
+*.swp
+*.lock

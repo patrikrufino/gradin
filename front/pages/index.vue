@@ -42,14 +42,14 @@
         <!-- Seletor de Linhas e Colunas -->
         <div class="flex gap-4">
           <div class="w-1/2 flex gap-2 items-center">
-            <label for="rows" class="w-2/6 block font-semibold">Linhas</label>
-            <select v-model="rows" id="rows" required class="cursor-pointer text-center w-4/6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block p-1">
+            <label for="rows" class="w-3/7 block font-semibold">Linhas</label>
+            <select v-model="rows" id="rows" required class="cursor-pointer text-center w-4/7 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block p-1">
               <option v-for="n in 6" :key="n" :value="n">{{ n }}</option>
             </select>
           </div>
-          <div class="w-1/2 flex gap-2 items-center">
-            <label for="cols" class="w-2/6 block font-semibold">Colunas</label>
-            <select v-model="cols" id="cols" required class="cursor-pointer text-center w-4/6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block p-1">
+          <div class="w-1/2 flex gap-2 items-center justify-end">
+            <label for="cols" class="w-3/7 block font-semibold">Colunas</label>
+            <select v-model="cols" id="cols" required class="cursor-pointer text-center w-4/7 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block p-1">
               <option v-for="n in 6" :key="n" :value="n">{{ n }}</option>
             </select>
           </div>

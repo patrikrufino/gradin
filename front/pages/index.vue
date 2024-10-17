@@ -2,12 +2,12 @@
   <div>
     <h1>Gerador de Gradil</h1>
     <form @submit.prevent="submitForm">
-      <input type="file" @change="onFileChange" required />
+      <input type="file" ref="fileInput" @change="onFileChange" accept="application/pdf" required />
       <input type="number" v-model="rows" required placeholder="Número de linhas" />
       <input type="number" v-model="cols" required placeholder="Número de colunas" />
       <button type="submit">Gerar Gradil</button>
     </form>
-    <a v-if="downloadUrl" :href="downloadUrl" download>Baixar PDF</a>
+    <a v-if="downloadUrl" :href="downloadUrl" target="_blank" @click="handleDownload">Baixar PDF</a>
   </div>
 </template>
 
@@ -44,6 +44,12 @@ export default defineComponent({
       } catch (error) {
         console.error('Erro ao enviar o formulário:', error);
       }
+    },
+    handleDownload() {
+      // Após 2 segundos, recarregar a página
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     },
   },
 });

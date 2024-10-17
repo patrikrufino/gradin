@@ -21,15 +21,16 @@
                 viewBox="0 0 24 24">
                 <path d="M6 2h9v6h6v14H6V2zm7 2v4h4l-4-4zM7 10h10v2H7v-2zm0 4h10v2H7v-2zm0 4h10v2H7v-2z" />
               </svg>
-              <p class="text-sm text-gray-500" v-if="!pdfFile">Click para enviar</p>
+              <p class="text-sm text-gray-500" v-if="!pdfFile">
+                <span class="font-bold">Click para enviar</span> ou arraste e solte</p>
               <p class="text-xs text-gray-500" v-if="!pdfFile">Somente arquivos PDF</p>
               <p v-else class="text-sm font-semibold text-gray-700">{{ pdfFile.name }}</p>
             </div>
             <input ref="fileInput" @change="onFileChange" id="dropzone-file" type="file" class="hidden"
               accept="application/pdf" required />
           </label>
-
         </div>
+        <p v-if="errorMessage" class="text-red-500 text-xs bg-red-100 w-64 text-center py-1 mt-2 border-red-500 rounded-lg transition-opacity duration-1000" :class="{'opacity-100': errorMessage, 'opacity-0': !errorMessage}">{{ errorMessage }}</p>
 
         <!-- Seletor de Linhas e Colunas -->
         <div class="flex gap-4">
@@ -77,7 +78,8 @@ export default defineComponent({
       rows: 1,
       cols: 1,
       downloadUrl: null as string | null,
-      isHighlighted: false, // Estado para controlar o destaque do dropzone
+      isHighlighted: false,
+      errorMessage: '', // Adiciona a propriedade para a mensagem de erro
     };
   },
   methods: {
@@ -114,13 +116,17 @@ export default defineComponent({
     setFile(file: File) {
       if (file.type === "application/pdf") {
         this.pdfFile = file;
+        this.errorMessage = ''; // Limpa a mensagem de erro
       } else {
-        console.error("Arquivo inválido! Apenas PDFs são permitidos.");
+        this.errorMessage = "Arquivo inválido! Apenas PDFs são permitidos.";
+        setTimeout(() => {
+          this.errorMessage = '';
+        }, 5000);
       }
     },
     async submitForm() {
       if (!this.pdfFile) {
-        console.log("Nenhum arquivo PDF selecionado.");
+        alert("Nenhum arquivo PDF selecionado.");
         return;
       }
 

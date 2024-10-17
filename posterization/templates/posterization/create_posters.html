@@ -13,7 +13,25 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="mb-4">
-                {{ form.as_p }}
+                <label for="{{ form.pdf_file.id_for_label }}" class="text-sm font-medium text-gray-700">{{ form.pdf_file.label }}</label>
+                {{ form.pdf_file }}
+                {% if form.pdf_file.errors %}
+                    <div class="text-red-600 text-sm">{{ form.pdf_file.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-4">
+                <label for="{{ form.rows.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.rows.label }}</label>
+                {{ form.rows }}
+                {% if form.rows.errors %}
+                    <div class="text-red-600 text-sm">{{ form.rows.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-4">
+                <label for="{{ form.cols.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.cols.label }}</label>
+                {{ form.cols }}
+                {% if form.cols.errors %}
+                    <div class="text-red-600 text-sm">{{ form.cols.errors }}</div>
+                {% endif %}
             </div>
             <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-200">Gerar Gradil</button>
         </form>

@@ -126,10 +126,12 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # Certifique-se de que o diretório 'temp' existe
 temp_dir = os.path.join(MEDIA_ROOT, 'temp')
 if not os.path.exists(temp_dir):
     os.makedirs(temp_dir)
 
-CORS_ALLOW_ALL_ORIGINS = True 
+CORS_ALLOW_ALL_ORIGINS = True

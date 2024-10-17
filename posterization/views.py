@@ -8,6 +8,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import PosterSerializer
 import os
+from django.urls import reverse
+import time
 
 def create_posters(request):
     if request.method == 'POST':
@@ -68,15 +70,18 @@ class CreatePostersView(APIView):
             # Chama a função para dividir o PDF
             output_file_path = split_pdf_into_posters(file_path, "poster", rows, cols)
             
-            # Prepara a resposta para download do arquivo
-            with open(output_file_path, 'rb') as output_file:
-                response = HttpResponse(output_file.read(), content_type='application/pdf')
-                response['Content-Disposition'] = f'attachment; filename={os.path.basename(output_file_path)}'
+            # Gera a URL para o arquivo gerado
+            output_file_name = os.path.basename(output_file_path)
+            output_file_url = request.build_absolute_uri(f"{settings.MEDIA_URL}temp/{output_file_name}")
             
             # Deleta o arquivo temporário
             os.remove(file_path)
             
-            return Response({'download_url': request.build_absolute_uri(output_file_path)}, status=status.HTTP_201_CREATED)
+            # Verifica se o arquivo gerado realmente existe
+            if not os.path.exists(output_file_path):
+                return Response({'error': 'Arquivo gerado não encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+            
+            return Response({'download_url': output_file_url}, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -107,7 +112,8 @@ def split_pdf_into_posters(filepath, output_prefix, rows, cols):
             new_page = output_pdf.new_page(width=piece_width, height=piece_height)
             new_page.show_pdf_page(new_page.rect, pdf_doc, 0, clip=piece_rect)
 
-    output_file_path = os.path.join(settings.MEDIA_ROOT, 'temp', f"{output_prefix}.pdf")
+    timestamp = int(time.time())
+    output_file_path = os.path.join(settings.MEDIA_ROOT, 'temp', f"{output_prefix}_{timestamp}.pdf")
     output_pdf.save(output_file_path)
     output_pdf.close()
     pdf_doc.close()

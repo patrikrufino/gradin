@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+    'rest_framework',
     'posterization',
 ]
 
@@ -48,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'gradin.urls'
@@ -128,3 +131,5 @@ MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 temp_dir = os.path.join(MEDIA_ROOT, 'temp')
 if not os.path.exists(temp_dir):
     os.makedirs(temp_dir)
+
+CORS_ALLOW_ALL_ORIGINS = True 

@@ -4,5 +4,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('make_poster/', views.create_posters, name='create_poster'),
+    path('make_poster/', views.create_posters, name='create_poster'),  # View web
+    path('api/make_poster/', views.CreatePostersView.as_view(), name='create_poster_api'),  # View API
 ]

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-mta4&10(9wrbqm7$%xaqgu1xsv5y(rafh5_hn!6p+b!4b*4h5+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['gradin.onrender.com']
+ALLOWED_HOSTS = ['gradin.onrender.com', 'localhost']
 
 
 # Application definition
@@ -136,3 +136,19 @@ if not os.path.exists(temp_dir):
     os.makedirs(temp_dir)
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS"
+]
+
+CORS_ALLOW_HEADERS = [
+    "content-type",
+    "authorization",
+    "x-csrftoken",
+    "x-requested-with"
+]

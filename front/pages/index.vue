@@ -142,8 +142,8 @@ export default defineComponent({
         this.downloadUrl = response.download_url;
       } catch (error) {
         console.error('Erro ao enviar o formulário:', error);
-        if (error.response) {
-          console.error('Resposta do servidor:', error.response);
+        if (error instanceof Error && 'response' in error) {
+          console.error('Resposta do servidor:', (error as any).response);
         }
       }
     },

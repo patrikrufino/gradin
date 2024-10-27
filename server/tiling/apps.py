@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class PosterizationConfig(AppConfig):
+class TilingConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'posterization'
+    name = 'tiling'

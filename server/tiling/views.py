@@ -12,7 +12,7 @@ from .utils.tiling import Tiling
 from typing import Any
 
 class TilingView(APIView):
-    def post(self, request: Any) -> Response:  # Adicionando anotações de tipo
+    def post(self, request: Any) -> Response:
         serializer = PosterSerializer(data=request.data)
         if serializer.is_valid():
             pdf_file = serializer.validated_data['pdf_file']

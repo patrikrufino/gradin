@@ -9,7 +9,7 @@ class Tiling:
     def __init__(self, filepath: str) -> None:
         self.filepath = filepath
     
-    def pdf_file(self, output_prefix: str, rows: int, cols: int) -> Optional[str]:  # Adicionando anotações de tipo
+    def pdf_file(self, output_prefix: str, rows: int, cols: int) -> Optional[str]:
         pdf_doc = fitz.open(self.filepath)
 
         if len(pdf_doc) == 0:
